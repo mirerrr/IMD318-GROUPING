@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Cart - Strawberry Shortcake Heaven</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-papLz9oDnN83l8wF6HoIAG2kP8tUEbdIWsYcGp1Q1o0gWZ3F0V4W1uT4gLUurFPTisIV5UmqP+ZkR6ej0FLv3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="icon" href="c:\Users\User\Downloads\iconstraw.png" type="image/png">
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      const day = days[now.getDay()];
+      const date = now.toLocaleDateString();
+      const time = now.toLocaleTimeString();
+      document.getElementById("clock").innerHTML = `${day}, ${date} - ${time}`;
+    }
+
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+      document.getElementById('cart-count').textContent = count;
+    }
+
+    function removeItem(index) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      loadCart();
+      updateCartCount();
+    }
+
+    function clearCart() {
+      localStorage.removeItem('cart');
+      loadCart();
+      updateCartCount();
+    }
+
+    function loadCart() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const table = document.getElementById('cart-table');
+      const totalDiv = document.getElementById('total-amount');
+
+      table.innerHTML = `
+        <tr>
+          <th>Image</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Qty</th>
+          <th>Total</th>
+          <th>Action</th>
+        </tr>
+      `;
+
+      if (cart.length === 0) {
+        const row = table.insertRow(-1);
+        const cell = row.insertCell(0);
+        cell.colSpan = 6;
+        cell.textContent = "🧁 Your cart is empty.";
+        cell.style.textAlign = "center";
+        totalDiv.innerHTML = "";
+        return;
+      }
+
+      let grandTotal = 0;
+      cart.forEach((item, index) => {
+        const row = table.insertRow(-1);
+        row.innerHTML = `
+          <td>${item.name}</td>
+          <td>RM${item.price}</td>
+          <td>${item.quantity}</td>
+          <td>RM${item.price * item.quantity}</td>
+          <td><button onclick="removeItem(${index})" class="remove-btn">Remove</button></td>
+        `;
+        grandTotal += item.price * item.quantity;
+      });
+
+      totalDiv.innerHTML = `
+        <p><strong>Total: RM${grandTotal}</strong></p>
+        <button onclick="clearCart()" class="clear-cart-btn">🧹 Clear Cart</button>
+      `;
+    }
+
+    window.onload = function () {
+      loadCart();
+      updateCartCount();
+      updateClock();
+      setInterval(updateClock, 1000);
+    };
+  </script>
+</head>
+<body>
+  <header>
+    <h1>🛒 Your Cart</h1>
+    <div id="clock"></div>
+    <nav>
+      <ul>
+         <li><a href="index.html">Home</a></li>
+        <li><a href="aboutus.html">About us</a></li>
+        <li><a href="our_team.html">Our Team</a></li>
+        <li><a href="our_business.html">Our Business</a></li>
+        <li><a href="add_on.html">Add-On</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="location.html">Location</a></li>
+        <li><a href="cart.html">Cart (<span id="cart-count">0</span>)</a></li>
+        <li><a href="checkout.html">Checkout</a></li>
+        <li><a href="customerfeedback.html">Feedback</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h2 style="text-align:center;">🧁 Your Cake Basket</h2>
+    <table class="cart-table" id="cart-table">
+      <!-- Dynamic content inserted by JS -->
+    </table>
+
+    <div class="cart-total" id="total-amount"></div>
+   </main>
+<!-- 🔊 Background Music -->
+  <audio id="bg-audio" loop>
+    <source src="ssc.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- 🎛 Sound Toggle Icon -->
+  <button id="sound-toggle" title="Toggle Sound">
+    <i id="sound-icon" class="fas fa-volume-up"></i>
+  </button>
+
+
+  <script>
+    const audio = document.getElementById('bg-audio');
+    const toggleBtn = document.getElementById('sound-toggle');
+    const icon = document.getElementById('sound-icon');
+
+    // Load saved time and play state
+    window.addEventListener('load', () => {
+      const savedTime = localStorage.getItem('bgAudioTime');
+      const savedPlaying = localStorage.getItem('bgAudioPlaying');
+
+      if (savedTime) {
+        audio.currentTime = parseFloat(savedTime);
+      }
+
+      if (savedPlaying === 'true') {
+        audio.play().then(() => {
+          icon.classList.remove('fa-volume-mute');
+          icon.classList.add('fa-volume-up');
+        }).catch(() => {
+          console.log('Autoplay blocked, waiting for interaction...');
+        });
+      } else {
+        icon.classList.remove('fa-volume-up');
+        icon.classList.add('fa-volume-mute');
+      }
+    });
+
+    // Save playback time and state
+    setInterval(() => {
+      localStorage.setItem('bgAudioTime', audio.currentTime);
+      localStorage.setItem('bgAudioPlaying', !audio.paused);
+    }, 1000);
+
+    window.addEventListener('beforeunload', () => {
+      localStorage.setItem('bgAudioTime', audio.currentTime);
+      localStorage.setItem('bgAudioPlaying', !audio.paused);
+    });
+
+    // Unmute/play on user interaction (autoplay workaround)
+    function enableAudio() {
+      if (audio.paused) {
+        audio.play().then(() => {
+          icon.classList.remove('fa-volume-mute');
+          icon.classList.add('fa-volume-up');
+        });
+      }
+    }
+    document.addEventListener('click', enableAudio);
+    document.addEventListener('keydown', enableAudio);
+
+    // Toggle sound with button
+    toggleBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        icon.classList.remove('fa-volume-mute');
+        icon.classList.add('fa-volume-up');
+      } else {
+        audio.pause();
+        icon.classList.remove('fa-volume-up');
+        icon.classList.add('fa-volume-mute');
+      }
+    });
+  </script>
+<footer style="z-index: 9999; position: relative; background-color: #ff99cc;">
+  <p>&copy; 2025 Strawberry Shortcake Heaven 🍓🎂❤️</p>
+  <div class="social-icons" style="color: black;">
+    <a href="#"><i class="fab fa-tiktok"></i></a>
+    <a href="#"><i class="fab fa-youtube"></i></a>
+    <a href="#"><i class="fab fa-whatsapp"></i></a>
+    <a href="#"><i class="fas fa-envelope"></i></a>
+  </div>
+</footer>
+
+
+  <script>
+    document.getElementById('checkout-form')?.addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert("Thank you! Your cake order has been placed. 🍰");
+      localStorage.removeItem('cart');
+      loadCart();
+      updateCartCount();
+      this.reset();
+    });
+  </script>
+</body>
+</html>

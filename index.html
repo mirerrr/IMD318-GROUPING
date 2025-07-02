@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Strawberry Shortcake Heaven</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="icon" href="c:\Users\User\Downloads\iconstraw.png" type="image/png">
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      const day = days[now.getDay()];
+      const date = now.toLocaleDateString();
+      const time = now.toLocaleTimeString();
+      document.getElementById("clock").innerHTML = `${day}, ${date} - ${time}`;
+    }
+    setInterval(updateClock, 1000);
+    window.onload = updateClock;
+  </script>
+</head>
+<body>
+  <header>
+    <h1>🍓 Strawberry Shortcake Heaven</h1>
+    <div id="clock"></div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="aboutus.html">About us</a></li>
+        <li><a href="our_team.html">Our Team</a></li>
+        <li><a href="our_business.html">Our Business</a></li>
+        <li><a href="add_on.html">Add-On</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="location.html">Location</a></li>
+        <li><a href="cart.html">Cart (<span id="cart-count">0</span>)</a></li>
+        <li><a href="checkout.html">Checkout</a></li>
+        <li><a href="customerfeedback.html">Feedback</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="search-bar">
+    <input type="text" placeholder="Search cakes...">
+    <i class="fas fa-search"></i>
+  </div>
+
+  <main>
+    <h2 style="text-align:center;">🧁 Our Delicious Cakes</h2>
+    <section class="products">
+      <div class="cake">
+        <img src="c:\Users\User\Downloads\classiccake.jpg" alt="Classic Strawberry Cheesecake">
+        <p>Classic Strawberry Cheesecake</p>
+        <p>RM135</p>
+        <button onclick="addToCart('Classic Strawberry Cheesecake', 135, 'c:\Users\User\Downloads\classiccake.jpg')">Add to Cart</button>
+        <button onclick="buyNow('Classic Strawberry Cheesecake', 135, 'c:\Users\User\Downloads\classiccake.jpg')">Buy Now</button>
+      </div>
+
+      <div class="cake">
+        <img src="c:\Users\User\Downloads\cbd.webp" alt="Chocolate Berry Delight">
+        <p>Chocolate Berry Delight</p>
+        <p>RM142</p>
+        <button onclick="addToCart('Chocolate Berry Delight', 142, 'c:\Users\User\Downloads\cbd.webp')">Add to Cart</button>
+        <button onclick="buyNow('Chocolate Berry Delight', 142, 'c:\Users\User\Downloads\cbd.webp')">Buy Now</button>
+      </div>
+
+      <div class="cake">
+        <img src="c:\Users\User\Downloads\mst.jpeg" alt="Mini Strawberry Tarts">
+        <p>Mini Strawberry Tarts</p>
+        <p>RM128</p>
+        <button onclick="addToCart('Mini Strawberry Tarts', 128, 'c:\Users\User\Downloads\mst.jpeg')">Add to Cart</button>
+        <button onclick="buyNow('Mini Strawberry Tarts', 128, 'c:\Users\User\Downloads\mst.jpeg')">Buy Now</button>
+      </div>
+
+      <div class="cake">
+        <img src="c:\Users\User\Downloads\rsc.jpg" alt="Rainbow Strawberry Cake">
+        <p>Rainbow Strawberry Cake</p>
+        <p>RM145</p>
+        <button onclick="addToCart('Rainbow Strawberry Cake', 145, 'c:\Users\User\Downloads\rsc.jpg')">Add to Cart</button>
+        <button onclick="buyNow('Rainbow Strawberry Cake', 145, 'c:\Users\User\Downloads\rsc.jpg')">Buy Now</button>
+      </div>
+
+      <div class="cake">
+        <img src="c:\Users\User\Downloads\psc.jpg" alt="Pistachio Strawberry Cake">
+        <p>Pistachio Strawberry Cake</p>
+        <p>RM258</p>
+        <button onclick="addToCart('Pistachio Strawberry Cake', 258, 'c:\Users\User\Downloads\psc.jpg')">Add to Cart</button>
+        <button onclick="buyNow('Pistachio Strawberry Cake', 258, 'c:\Users\User\Downloads\psc.jpg')">Buy Now</button>
+      </div>
+
+      <div class="cake">
+        <img src="c:\Users\User\Downloads\bcc.jpg" alt="Burncheesecake Strawberry">
+        <p>Burncheesecake Strawberry</p>
+        <p>RM222</p>
+        <button onclick="addToCart('Burncheesecake Strawberry', 222)">Add to Cart</button>
+        <button onclick="buyNow('Burncheesecake StrawberryMini Berry Surprise', 222)">Buy Now</button>
+      </div>
+    </section>
+
+    <section class="video-section">
+      <video width="40%" controls>
+        <source src="c:\Users\User\Downloads\strawberry picking.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+        </video>
+    <video width="40%" controls> 
+        <source src="c:\Users\User\Downloads\strawberry baking.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+        </video>
+    </section>
+  </main>
+<!-- 🔊 Background Music -->
+  <audio id="bg-audio" loop>
+    <source src="ssc.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- 🎛 Sound Toggle Icon -->
+  <button id="sound-toggle" title="Toggle Sound">
+    <i id="sound-icon" class="fas fa-volume-up"></i>
+  </button>
+
+
+  <script>
+    const audio = document.getElementById('bg-audio');
+    const toggleBtn = document.getElementById('sound-toggle');
+    const icon = document.getElementById('sound-icon');
+
+    // Load saved time and play state
+    window.addEventListener('load', () => {
+      const savedTime = localStorage.getItem('bgAudioTime');
+      const savedPlaying = localStorage.getItem('bgAudioPlaying');
+
+      if (savedTime) {
+        audio.currentTime = parseFloat(savedTime);
+      }
+
+      if (savedPlaying === 'true') {
+        audio.play().then(() => {
+          icon.classList.remove('fa-volume-mute');
+          icon.classList.add('fa-volume-up');
+        }).catch(() => {
+          console.log('Autoplay blocked, waiting for interaction...');
+        });
+      } else {
+        icon.classList.remove('fa-volume-up');
+        icon.classList.add('fa-volume-mute');
+      }
+    });
+
+    // Save playback time and state
+    setInterval(() => {
+      localStorage.setItem('bgAudioTime', audio.currentTime);
+      localStorage.setItem('bgAudioPlaying', !audio.paused);
+    }, 1000);
+
+    window.addEventListener('beforeunload', () => {
+      localStorage.setItem('bgAudioTime', audio.currentTime);
+      localStorage.setItem('bgAudioPlaying', !audio.paused);
+    });
+
+    // Unmute/play on user interaction (autoplay workaround)
+    function enableAudio() {
+      if (audio.paused) {
+        audio.play().then(() => {
+          icon.classList.remove('fa-volume-mute');
+          icon.classList.add('fa-volume-up');
+        });
+      }
+    }
+    document.addEventListener('click', enableAudio);
+    document.addEventListener('keydown', enableAudio);
+
+    // Toggle sound with button
+    toggleBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        icon.classList.remove('fa-volume-mute');
+        icon.classList.add('fa-volume-up');
+      } else {
+        audio.pause();
+        icon.classList.remove('fa-volume-up');
+        icon.classList.add('fa-volume-mute');
+      }
+    });
+  </script>
+  <footer>
+    <p>&copy; 2025 Strawberry Shortcake Heaven</p>
+    <div class="social-icons">
+      <a href="https://www.tiktok.com/@strawberryshortcake" target="_blank"><i class="fab fa-tiktok"></i></a>
+      <a href="https://youtu.be/ccheK0xcqx4?si=s5PGrGfMuPoMfT7W" target="_blank"><i class="fab fa-youtube"></i></a>
+      <a href="https://www.whatsapp.com/" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://mail.google.com/mail/u/0/#inbox" target="_blank"><i class="fas fa-envelope"></i></a>
+    </div>
+  </footer>
+
+  <script>
+    function addToCart(name, price, image) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const item = { name, price, image, quantity: 1 };
+      const existing = cart.find(c => c.name === name);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push(item);
+      }
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
+      alert(name + " added to cart!");
+    }
+
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+      document.getElementById('cart-count').textContent = count;
+    }
+
+    function buyNow(name, price, image) {
+      localStorage.setItem('cart', JSON.stringify([{ name, price, image, quantity: 1 }]));
+      window.location.href = "checkout.html";
+    }
+
+    window.onload = updateCartCount;
+  </script>
+</body>
+</html>

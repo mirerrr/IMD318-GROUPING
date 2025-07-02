@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Add-On - Strawberry Shortcake Heaven</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="icon" href="c:\Users\User\Downloads\iconstraw.png" type="image/png">
+ <header>
+    <h1>🎁 Our Team</h1>
+    <div id="clock"></div>
+    <nav class="navbar">
+      <ul class="nav-left">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="aboutus.html">About us</a></li>
+        <li><a href="our_team.html">Our Team</a></li>
+        <li><a href="our_business.html">Our Business</a></li>
+        <li><a href="add_on.html">Add-On</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="location.html">Location</a></li>
+        <li><a href="cart.html">Cart (<span id="cart-count">0</span>)</a></li>
+        <li><a href="checkout.html">Checkout</a></li>
+        <li><a href="customerfeedback.html">Feedback</a></li>
+      </ul>
+      
+    </nav>
+  </header>
+  <main>
+  <body>
+  <a class="logo">Our Team Member</a>
+
+
+    <div class="team">
+      <div class="team-member">
+        <img src="c:\Users\User\Downloads\dini.jpg" alt="Team Member">
+        <h3>Dini Arissa</h3>
+        <p>Founder</p>
+      </div>
+      <div class="team-member">
+        <img src="c:\Users\User\Downloads\farah.jpg" alt="Team Member">
+        <h3>Farah Batrisyia</h3>
+        <p>Manager</p>
+      </div>
+      <div class="team-member">
+        <img src="c:\Users\User\Downloads\mirer.jpg" alt="Team Member">
+        <h3>Amirah Atiqah</h3>
+        <p>Assistant Manager</p>
+      </div>
+      <div class="team-member">
+        <img src="c:\Users\User\Downloads\zaf.jpg" alt="Team Member">
+        <h3>Nuranis Zafiera</h3>
+        <p>Staff</p>
+      </div>
+      <div class="team-member">
+        <img src="c:\Users\User\Downloads\wawa.jpg" alt="Team Member">
+        <h3>Nur Zahawaheeda</h3>
+        <p>Staff</p>
+      </div>
+    </div>
+  </div>
+  </main>
+
+ <!-- 🔊 Background Music -->
+  <audio id="bg-audio" loop>
+    <source src="ssc.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- 🎛 Sound Toggle Icon -->
+  <button id="sound-toggle" title="Toggle Sound">
+    <i id="sound-icon" class="fas fa-volume-up"></i>
+  </button>
+
+
+  <script>
+    const audio = document.getElementById('bg-audio');
+    const toggleBtn = document.getElementById('sound-toggle');
+    const icon = document.getElementById('sound-icon');
+
+    // Load saved time and play state
+    window.addEventListener('load', () => {
+      const savedTime = localStorage.getItem('bgAudioTime');
+      const savedPlaying = localStorage.getItem('bgAudioPlaying');
+
+      if (savedTime) {
+        audio.currentTime = parseFloat(savedTime);
+      }
+
+      if (savedPlaying === 'true') {
+        audio.play().then(() => {
+          icon.classList.remove('fa-volume-mute');
+          icon.classList.add('fa-volume-up');
+        }).catch(() => {
+          console.log('Autoplay blocked, waiting for interaction...');
+        });
+      } else {
+        icon.classList.remove('fa-volume-up');
+        icon.classList.add('fa-volume-mute');
+      }
+    });
+
+    // Save playback time and state
+    setInterval(() => {
+      localStorage.setItem('bgAudioTime', audio.currentTime);
+      localStorage.setItem('bgAudioPlaying', !audio.paused);
+    }, 1000);
+
+    window.addEventListener('beforeunload', () => {
+      localStorage.setItem('bgAudioTime', audio.currentTime);
+      localStorage.setItem('bgAudioPlaying', !audio.paused);
+    });
+
+    // Unmute/play on user interaction (autoplay workaround)
+    function enableAudio() {
+      if (audio.paused) {
+        audio.play().then(() => {
+          icon.classList.remove('fa-volume-mute');
+          icon.classList.add('fa-volume-up');
+        });
+      }
+    }
+    document.addEventListener('click', enableAudio);
+    document.addEventListener('keydown', enableAudio);
+
+    // Toggle sound with button
+    toggleBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        icon.classList.remove('fa-volume-mute');
+        icon.classList.add('fa-volume-up');
+      } else {
+        audio.pause();
+        icon.classList.remove('fa-volume-up');
+        icon.classList.add('fa-volume-mute');
+      }
+    });
+  </script>
+
+  <footer>
+  <p>&copy; 2025 Strawberry Shortcake Heaven</p>
+  <div class="social-icons">
+    <a href="https://www.tiktok.com/@strawberryshortcake" target="_blank"><i class="fab fa-tiktok"></i></a>
+    <a href="https://youtu.be/ccheK0xcqx4?si=s5PGrGfMuPoMfT7W" target="_blank"><i class="fab fa-youtube"></i></a>
+    <a href="https://www.whatsapp.com/" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://mail.google.com/mail/u/0/#inbox" target="_blank"><i class="fas fa-envelope"></i></a>
+  </div>
+</footer>
+
+
+  </body>
+</head>

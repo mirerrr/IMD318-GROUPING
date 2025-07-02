@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Strawberry Shortcake Heaven</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="icon" href="c:\Users\User\Downloads\iconstraw.png" type="image/png">
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      const day = days[now.getDay()];
+      const date = now.toLocaleDateString();
+      const time = now.toLocaleTimeString();
+      document.getElementById("clock").innerHTML = `${day}, ${date} - ${time}`;
+    }
+    setInterval(updateClock, 1000);
+    window.onload = updateClock;
+  </script>
+
+  <style>
+    #notification {
+      display: none;
+      background-color: #d1ffd6;
+      color: #006400;
+      padding: 15px;
+      border-radius: 10px;
+      font-weight: bold;
+      text-align: center;
+      margin: 20px auto;
+      width: 90%;
+      max-width: 500px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🍓 Strawberry Shortcake Heaven</h1>
+    <div id="clock"></div>
+    <nav>
+      <ul>
+       <li><a href="index.html">Home</a></li>
+        <li><a href="aboutus.html">About us</a></li>
+        <li><a href="our_team.html">Our Team</a></li>
+        <li><a href="our_business.html">Our Business</a></li>
+        <li><a href="add_on.html">Add-On</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="location.html">Location</a></li>
+        <li><a href="cart.html">Cart (<span id="cart-count">0</span>)</a></li>
+        <li><a href="checkout.html">Checkout</a></li>
+        <li><a href="customerfeedback.html">Feedback</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="feedback-container">
+    <h2>We’d love to hear from you!</h2>
+    <p>Tell us what you think about our cakes, service, and overall experience.</p>
+
+    <!-- 🔧 Added ID -->
+    <form class="feedback-form" id="feedbackForm" action="#" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required />
+      <input type="email" name="email" placeholder="Your Email" required />
+      <textarea name="message" rows="5" placeholder="Your Feedback" required></textarea>
+      <button type="submit">Submit Feedback</button>
+    </form>
+
+    <!-- ✅ Notification Message -->
+    <div id="notification">🎉 Thank you for your feedback!</div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Strawberry Shortcake Heaven</p>
+    <div class="social-icons">
+      <a href="https://www.tiktok.com/@strawberryshortcake" target="_blank"><i class="fab fa-tiktok"></i></a>
+      <a href="https://youtu.be/ccheK0xcqx4?si=s5PGrGfMuPoMfT7W" target="_blank"><i class="fab fa-youtube"></i></a>
+      <a href="https://www.whatsapp.com/" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://mail.google.com/mail/u/0/#inbox" target="_blank"><i class="fas fa-envelope"></i></a>
+    </div>
+  </footer>
+
+  <!-- ✅ Feedback Form Script -->
+  <script>
+    const form = document.getElementById("feedbackForm");
+    const notification = document.getElementById("notification");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault(); // prevent form from actually submitting
+
+      // Get values (optional check)
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const message = form.message.value.trim();
+
+      if (name && email && message) {
+        // Show notification
+        notification.style.display = "block";
+
+        // Reset form
+        form.reset();
+
+        // Hide after 4 seconds
+        setTimeout(() => {
+          notification.style.display = "none";
+        }, 4000);
+      } else {
+        alert("Please fill in all fields.");
+      }
+    });
+  </script>
+
+  <!-- 🔊 Background Music -->
+  <audio id="bg-audio" loop>
+    <source src="ssc.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- 🎛 Sound Toggle Icon -->
+  <button id="sound-toggle" title="Toggle Sound">
+    <i id="sound-icon" class="fas fa-volume-up"></i>
+  </button>
+
+
+  <script>
+    const audio = document.getElementById('bg-audio');
+    const toggleBtn = document.getElementById('sound-toggle');
+    const icon = document.getElementById('sound-icon');
+
+    // Load saved time and play state
+    window.addEventListener('load', () => {
+      const savedTime = localStorage.getItem('bgAudioTime');
+      const savedPlaying = localStorage.getItem('bgAudioPlaying');
+
+      if (savedTime) {
+        audio.currentTime = parseFloat(savedTime);
+      }
+
+      if (savedPlaying === 'true') {
+        audio.play().then(() => {
+          icon.classList.remove('fa-volume-mute');
+          icon.classList.add('fa-volume-up');
+        }).catch(() => {
+          console.log('Autoplay blocked, waiting for interaction...');
+        });
+      } else {
+        icon.classList.remove('fa-volume-up');
+        icon.classList.add('fa-volume-mute');
+      }
+    });
+
+    // Save playback time and state
+    setInterval(() => {
+      localStorage.setItem('bgAudioTime', audio.currentTime);
+      localStorage.setItem('bgAudioPlaying', !audio.paused);
+    }, 1000);
+
+    window.addEventListener('beforeunload', () => {
+      localStorage.setItem('bgAudioTime', audio.currentTime);
+      localStorage.setItem('bgAudioPlaying', !audio.paused);
+    });
+
+    // Unmute/play on user interaction (autoplay workaround)
+    function enableAudio() {
+      if (audio.paused) {
+        audio.play().then(() => {
+          icon.classList.remove('fa-volume-mute');
+          icon.classList.add('fa-volume-up');
+        });
+      }
+    }
+    document.addEventListener('click', enableAudio);
+    document.addEventListener('keydown', enableAudio);
+
+    // Toggle sound with button
+    toggleBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        icon.classList.remove('fa-volume-mute');
+        icon.classList.add('fa-volume-up');
+      } else {
+        audio.pause();
+        icon.classList.remove('fa-volume-up');
+        icon.classList.add('fa-volume-mute');
+      }
+    });
+  </script>
+
+</body>
+</html>
+

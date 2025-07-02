@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Add-On - Strawberry Shortcake Heaven</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="icon" href="c:\Users\User\Downloads\iconstraw.png" type="image/png">
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      const day = days[now.getDay()];
+      const date = now.toLocaleDateString();
+      const time = now.toLocaleTimeString();
+      document.getElementById("clock").innerHTML = `${day}, ${date} - ${time}`;
+    }
+    setInterval(updateClock, 1000);
+    window.onload = updateClock;
+  </script>
+</head>
+<body>
+  <header>
+    <h1>🎁 Add-On Items</h1>
+    <div id="clock"></div>
+    <nav class="navbar">
+      <ul class="nav-left">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="aboutus.html">About us</a></li>
+        <li><a href="our_team.html">Our Team</a></li>
+        <li><a href="our_business.html">Our Business</a></li>
+        <li><a href="add_on.html">Add-On</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="location.html">Location</a></li>
+        <li><a href="cart.html">Cart (<span id="cart-count">0</span>)</a></li>
+        <li><a href="checkout.html">Checkout</a></li>
+        <li><a href="customerfeedback.html">Feedback</a></li>
+      </ul>
+      <div class="search-bar">
+        <input type="text" placeholder="Search cakes..." />
+        <i class="fas fa-search"></i>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="products">
+      <div class="cake">
+        <img src="c:\Users\User\Downloads\balloonset.jpg" alt="Balloons" />
+        <p>Balloons Set</p>
+        <p>RM30</p>
+        <button onclick="addToCart('Balloons Set', 30)">Add to Cart</button>
+        <button onclick="buyNow('Balloons Set', 30 )">Buy Now</button>
+      </div>
+      <div class="cake">
+        <img src="c:\Users\User\Downloads\babypink.jpg" alt="Flowers" />
+        <p>Fresh Flowers</p>
+        <p>RM35</p>
+        <button onclick="addToCart('Fresh Flowers', 35)">Add to Cart</button>
+        <button onclick="buyNow('Fresh Flowers', 35 )">Buy Now</button>
+      </div>
+      <div class="cake">
+        <img src="c:\Users\User\Downloads\birthdaykit1.jpg" alt="Decor Kit" />
+        <p>Birthday Decor Kit 1</p>
+        <p>RM80</p>
+        <button onclick="addToCart('Birthday Decor Kit 1', 80)">Add to Cart</button>
+        <button onclick="buyNow('Birthday Decor Kit 1', 80 )">Buy Now</button>
+      </div>
+      <div class="cake">
+        <img src="c:\Users\User\Downloads\birthdaykit.webp" alt="Birthday Kit" />
+        <p>Birthday Deco Kit 2</p>
+        <p>RM40</p>
+        <button onclick="addToCart('Birthday Deco Kit 2', 40)">Add to Cart</button>
+        <button onclick="buyNow('Birthday Deco Kit 2', 40 )">Buy Now</button>
+      </div>
+      <div class="cake">
+        <img src="c:\Users\User\Downloads\birthdaycard.avif" alt="Birthday Kit" />
+        <p>Greeting Card with Message</p>
+        <p>RM15</p>
+        <button onclick="addToCart('Greeting Card with Message',15)">Add to Cart</button>
+        <button onclick="buyNow('Greeting Card with Message', 15 )">Buy Now</button>
+      </div>
+      <div class="cake">
+        <img src="c:\Users\User\Downloads\headband.jpg" alt="Birthday Kit" />
+        <p>3 Pcs Birthday Hair Band</p>
+        <p>RM40</p>
+        <button onclick="addToCart('3 Pcs Birthday Hair Band', 40)">Add to Cart</button>
+        <button onclick="buyNow('3 Pcs Birthday Hair Band', 40 )">Buy Now</button>
+      </div>
+      <div class="cake">
+        <img src="c:\Users\User\Downloads\shoulder strap.avif" alt="Birthday Kit" />
+        <p>Happy Birthday Shoulder Strap</p>
+        <p>RM25</p>
+        <button onclick="addToCart('Happy Birthday Shoulder Strap', 25)">Add to Cart</button>
+        <button onclick="buyNow('Happy Birthday Shoulder Strap', 25 )">Buy Now</button>
+      </div>
+      <div class="cake">
+        <img src="c:\Users\User\Downloads\candlespark.jpeg" alt="Birthday Kit" />
+        <p>Fire Sparkle Candle</p>
+        <p>RM20</p>
+        <button onclick="addToCart('Fire Sparkle Candle', 20)">Add to Cart</button>
+        <button onclick="buyNow('Fire Sparkle Candle', 20 )">Buy Now</button>
+      </div>
+      <div class="cake">
+        <img src="c:\Users\User\Downloads\softdrink.avif" alt="Birthday Kit" />
+        <p>7Pcs Soft Drinks</p>
+        <p>RM40</p>
+        <button onclick="addToCart('7Pcs Soft Drinks', 40)">Add to Cart</button>
+        <button onclick="buyNow('7Pcs Soft Drinks', 40 )">Buy Now</button>
+      </div>
+      <div class="cake">
+        <img src="c:\Users\User\Downloads\brownies.avif" alt="Birthday Kit" />
+        <p>Brownies</p>
+        <p>RM40</p>
+        <button onclick="addToCart('Brownies', 40 )">Add to Cart</button>
+        <button onclick="buyNow('Brownies', 40 )">Buy Now</button>
+      </div>
+      <div class="cake">
+        <img src="c:\Users\User\Downloads\chocset.jpg" alt="Birthday Kit" />
+        <p>Chocolate Fountain Set</p>
+        <p>RM150</p>
+        <button onclick="addToCart('Chocolate Fountain Set', 150 )">Add to Cart</button>
+        <button onclick="buyNow('Chocolate Fountain Set', 150  )">Buy Now</button>
+      </div>
+      <div class="cake">
+        <img src="c:\Users\User\Downloads\giftset.jpg" alt="Birthday Kit" />
+        <p>Gift Set</p>
+        <p>RM65</p>
+        <button onclick="addToCart('Gift Set', 65 )">Add to Cart</button>
+        <button onclick="buyNow('Gift Set', 65 )">Buy Now</button>
+      </div>
+    </section>
+  </main>
+<!-- 🔊 Background Music -->
+  <audio id="bg-audio" loop>
+    <source src="ssc.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- 🎛 Sound Toggle Icon -->
+  <button id="sound-toggle" title="Toggle Sound">
+    <i id="sound-icon" class="fas fa-volume-up"></i>
+  </button>
+
+
+  <script>
+    const audio = document.getElementById('bg-audio');
+    const toggleBtn = document.getElementById('sound-toggle');
+    const icon = document.getElementById('sound-icon');
+
+    // Load saved time and play state
+    window.addEventListener('load', () => {
+      const savedTime = localStorage.getItem('bgAudioTime');
+      const savedPlaying = localStorage.getItem('bgAudioPlaying');
+
+      if (savedTime) {
+        audio.currentTime = parseFloat(savedTime);
+      }
+
+      if (savedPlaying === 'true') {
+        audio.play().then(() => {
+          icon.classList.remove('fa-volume-mute');
+          icon.classList.add('fa-volume-up');
+        }).catch(() => {
+          console.log('Autoplay blocked, waiting for interaction...');
+        });
+      } else {
+        icon.classList.remove('fa-volume-up');
+        icon.classList.add('fa-volume-mute');
+      }
+    });
+
+    // Save playback time and state
+    setInterval(() => {
+      localStorage.setItem('bgAudioTime', audio.currentTime);
+      localStorage.setItem('bgAudioPlaying', !audio.paused);
+    }, 1000);
+
+    window.addEventListener('beforeunload', () => {
+      localStorage.setItem('bgAudioTime', audio.currentTime);
+      localStorage.setItem('bgAudioPlaying', !audio.paused);
+    });
+
+    // Unmute/play on user interaction (autoplay workaround)
+    function enableAudio() {
+      if (audio.paused) {
+        audio.play().then(() => {
+          icon.classList.remove('fa-volume-mute');
+          icon.classList.add('fa-volume-up');
+        });
+      }
+    }
+    document.addEventListener('click', enableAudio);
+    document.addEventListener('keydown', enableAudio);
+
+    // Toggle sound with button
+    toggleBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        icon.classList.remove('fa-volume-mute');
+        icon.classList.add('fa-volume-up');
+      } else {
+        audio.pause();
+        icon.classList.remove('fa-volume-up');
+        icon.classList.add('fa-volume-mute');
+      }
+    });
+  </script>
+  <footer>
+    <p>&copy; 2025 Strawberry Shortcake Heaven</p>
+    <div class="social-icons">
+      <a href="https://www.tiktok.com/@strawberryshortcake" target="_blank"><i class="fab fa-tiktok"></i></a>
+      <a href="https://youtu.be/ccheK0xcqx4?si=s5PGrGfMuPoMfT7W" target="_blank"><i class="fab fa-youtube"></i></a>
+      <a href="https://www.whatsapp.com/" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://mail.google.com/mail/u/0/#inbox" target="_blank"><i class="fas fa-envelope"></i></a>
+    </div>
+  </footer>
+   <script>
+    function addToCart(name, price, image) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const item = { name, price, image, quantity: 1 };
+      const existing = cart.find(c => c.name === name);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push(item);
+      }
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
+      alert(name + " added to cart!");
+    }
+
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+      document.getElementById('cart-count').textContent = count;
+    }
+
+    function buyNow(name, price, image) {
+      localStorage.setItem('cart', JSON.stringify([{ name, price, image, quantity: 1 }]));
+      window.location.href = "checkout.html";
+    }
+
+    window.onload = updateCartCount;
+  </script>
+</body>
+</html>

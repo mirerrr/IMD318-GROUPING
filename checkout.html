@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout - Strawberry Shortcake Heaven</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
+  <link rel="icon" href="c:\Users\User\Downloads\iconstraw.png" type="image/png">
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      const day = days[now.getDay()];
+      const date = now.toLocaleDateString();
+      const time = now.toLocaleTimeString();
+      document.getElementById("clock").innerHTML = `${day}, ${date} - ${time}`;
+    }
+
+    function displayOrderSummary() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const list = document.getElementById('order-list');
+      let grandTotal = 0;
+
+      if (cart.length === 0) {
+        list.innerHTML = "<p>Your cart is empty 🍰</p>";
+        document.getElementById('total').innerText = "Total: RM0";
+        return;
+      }
+
+      list.innerHTML = ""; // Clear previous content if any
+
+      cart.forEach(item => {
+        const total = item.price * item.quantity;
+        grandTotal += total;
+
+        const div = document.createElement("div");
+        div.classList.add("order-item");
+        div.innerHTML = `
+          
+          <span>${item.name} x${item.quantity} = RM${total}</span>
+        `;
+        list.appendChild(div);
+      });
+
+      document.getElementById('total').innerText = `Total: RM${grandTotal}`;
+    }
+
+    window.onload = function () {
+      updateClock();
+      setInterval(updateClock, 1000);
+      displayOrderSummary();
+    };
+  </script>
+</head>
+<body>
+  <header>
+    <h1>💳 Checkout</h1>
+    <div id="clock"></div>
+    <nav>
+      <ul>
+         <li><a href="index.html">Home</a></li>
+        <li><a href="aboutus.html">About us</a></li>
+        <li><a href="our_team.html">Our Team</a></li>
+        <li><a href="our_business.html">Our Business</a></li>
+        <li><a href="add_on.html">Add-On</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="location.html">Location</a></li>
+        <li><a href="cart.html">Cart (<span id="cart-count">0</span>)</a></li>
+        <li><a href="checkout.html">Checkout</a></li>
+        <li><a href="customerfeedback.html">Feedback</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h2>🧱 Order Summary</h2>
+    <div id="order-list" class="order-summary"></div>
+    <p id="total"><strong>Total:</strong></p>
+
+    <h3>📝 Delivery & Payment Info</h3>
+    <form id="order-form">
+      <input type="text" name="name" placeholder="Full Name" required />
+      <input type="email" name="email" placeholder="Email" required />
+      <input type="tel" name="phone" placeholder="Phone Number" required />
+      <textarea name="address" placeholder="Shipping Address" required></textarea>
+
+      <label for="payment">Payment Method:</label>
+      <select name="payment" required>
+        <option value="">Select</option>
+        <option value="bank">Online Bank Transfer</option>
+        <option value="cash">Cash on Delivery</option>
+        <option value="tng">TNG eWallet</option>
+      </select>
+
+      <button type="submit">Place Order</button>
+    </form>
+  </main>
+<!-- 🔊 Background Music -->
+  <audio id="bg-audio" loop>
+    <source src="ssc.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- 🎛 Sound Toggle Icon -->
+  <button id="sound-toggle" title="Toggle Sound">
+    <i id="sound-icon" class="fas fa-volume-up"></i>
+  </button>
+
+
+  <script>
+    const audio = document.getElementById('bg-audio');
+    const toggleBtn = document.getElementById('sound-toggle');
+    const icon = document.getElementById('sound-icon');
+
+    // Load saved time and play state
+    window.addEventListener('load', () => {
+      const savedTime = localStorage.getItem('bgAudioTime');
+      const savedPlaying = localStorage.getItem('bgAudioPlaying');
+
+      if (savedTime) {
+        audio.currentTime = parseFloat(savedTime);
+      }
+
+      if (savedPlaying === 'true') {
+        audio.play().then(() => {
+          icon.classList.remove('fa-volume-mute');
+          icon.classList.add('fa-volume-up');
+        }).catch(() => {
+          console.log('Autoplay blocked, waiting for interaction...');
+        });
+      } else {
+        icon.classList.remove('fa-volume-up');
+        icon.classList.add('fa-volume-mute');
+      }
+    });
+
+    // Save playback time and state
+    setInterval(() => {
+      localStorage.setItem('bgAudioTime', audio.currentTime);
+      localStorage.setItem('bgAudioPlaying', !audio.paused);
+    }, 1000);
+
+    window.addEventListener('beforeunload', () => {
+      localStorage.setItem('bgAudioTime', audio.currentTime);
+      localStorage.setItem('bgAudioPlaying', !audio.paused);
+    });
+
+    // Unmute/play on user interaction (autoplay workaround)
+    function enableAudio() {
+      if (audio.paused) {
+        audio.play().then(() => {
+          icon.classList.remove('fa-volume-mute');
+          icon.classList.add('fa-volume-up');
+        });
+      }
+    }
+    document.addEventListener('click', enableAudio);
+    document.addEventListener('keydown', enableAudio);
+
+    // Toggle sound with button
+    toggleBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        icon.classList.remove('fa-volume-mute');
+        icon.classList.add('fa-volume-up');
+      } else {
+        audio.pause();
+        icon.classList.remove('fa-volume-up');
+        icon.classList.add('fa-volume-mute');
+      }
+    });
+  </script>
+  <footer>
+    <p>&copy; 2025 Strawberry Shortcake Heaven</p>
+    <div class="social-icons">
+      <a href="https://www.tiktok.com/@strawberryshortcake" target="_blank"><i class="fab fa-tiktok"></i></a>
+      <a href="https://youtu.be/ccheK0xcqx4?si=s5PGrGfMuPoMfT7W" target="_blank"><i class="fab fa-youtube"></i></a>
+      <a href="https://www.whatsapp.com/" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://mail.google.com/mail/u/0/#inbox" target="_blank"><i class="fas fa-envelope"></i></a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('order-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert("Thank you! Your order has been placed 🍓");
+      localStorage.removeItem('cart');
+      this.reset();
+      document.getElementById("order-list").innerHTML = "<p>Your cart is empty.</p>";
+      document.getElementById("total").innerText = "Total: RM0";
+    });
+  </script>
+</body>
+</html>
